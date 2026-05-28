@@ -21,10 +21,10 @@ jobs:
           java-version: 17
 
       - name: Compile code
-        run: javac Student.java
+        run: javac *.java
 
       - name: Run program
-        run: java Student
+        run: java student
 
   test:
     runs-on: ubuntu-latest
@@ -40,7 +40,12 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Run tests
+      - name: Download JUnit
         run: |
-          javac -cp .:junit-platform-console-standalone.jar *.java
-          java -jar junit-platform-console-standalone.jar --scan-classpath
+          wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar -O junit.jar
+
+      - name: Compile tests
+        run: javac -cp .:junit.jar *.java
+
+      - name: Run tests
+        run: java -jar junit.jar --scan-classpath
