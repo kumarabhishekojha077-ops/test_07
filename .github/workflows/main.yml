@@ -1,4 +1,4 @@
-name: Java CI Pipeline
+name: Advanced Java CI
 
 on:
   push:
@@ -7,21 +7,40 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-run:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Compile Java program
-        run: javac student.java
+      - name: Compile code
+        run: javac Student.java
 
-      - name: Run Java program
-        run: java student
+      - name: Run program
+        run: java Student
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Run tests
+        run: |
+          javac -cp .:junit-platform-console-standalone.jar *.java
+          java -jar junit-platform-console-standalone.jar --scan-classpath
