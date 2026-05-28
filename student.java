@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class student {
     @Test
     void testGreet() {
-        Student s = new Student();
+        student s = new student();
         assertEquals("hello world..", s.greet());
     }
 }
