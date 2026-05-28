@@ -1,5 +1,10 @@
-public class student {
-    public static void main(String[] args) {
-        System.out.println("hello world..");
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class StudentTest {
+    @Test
+    void testGreet() {
+        Student s = new Student();
+        assertEquals("hello world..", s.greet());
     }
 }
